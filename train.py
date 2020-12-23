@@ -38,7 +38,7 @@ def train(segmentation_module, iterator, optimizers, history, epoch, cfg):
         adjust_learning_rate(optimizers, cur_iter, cfg)
 
         # forward pass
-        loss, acc = segmentation_module(batch_data)
+        loss, acc = segmentation_module({key: batch_data[0][key].cuda() for key in batch_data[0]})
         loss = loss.mean()
         acc = acc.mean()
 
